@@ -304,32 +304,54 @@ AC_SUBST([hdf5])
 AC_SUBST([medfile])
 AC_SUBST([medcoupling])
 
-CXXFLAGS_MED="-I${hdf5}/include -I${medfile}/include -I${medcoupling}/include  ${CXXFLAGS}"
-LDFLAGS_MED="-L${hdf5}/lib -L${medfile}/lib -L${medcoupling}/lib ${LDFLAGS}"
-LIBS_MED="-lhdf5 -lmedC -lmedloader -lmedcoupling -linterpkernel -lmedcouplingremapper   ${LIBS}"
-AC_SUBST(CXXFLAGS_MED,[$CXXFLAGS_MED])
-AC_SUBST(LDFLAGS_MED,[$LDFLAGS_MED])
-AC_SUBST(LIBS_MED,[$LIBS_MED])
-
 AM_CONDITIONAL([HAVEMED], [test $hdf5 != no -a $medfile != no -a $medcoupling != no])
-
+AC_MSG_RESULT([])
 test $hdf5 != no && AC_MSG_RESULT([checking for hdf5... yes])
 test $hdf5 == no && AC_MSG_RESULT([checking for hdf5... no])
 test $medfile != no && AC_MSG_RESULT([checking for medfile... yes])
 test $medfile == no && AC_MSG_RESULT([checking for medfile... no])
 test $medcoupling != no && AC_MSG_RESULT([checking for medcoupling... yes])
-test $medcoupling == no && AC_MSG_RESULT([checking for medcoupling... yes])
-test $hdf5 != no -a $medfile != no -a $medcoupling != no && AC_MSG_RESULT([med support... yes
- ])
+test $medcoupling == no && AC_MSG_RESULT([checking for medcoupling... no])
+test $hdf5 != no -a $medfile != no -a $medcoupling != no && AC_MSG_RESULT([med support... yes])
+AC_MSG_RESULT([])
+
+dnl CXXFLAGS_MED="-I${hdf5}/include -I${medfile}/include -I${medcoupling}/include  ${CXXFLAGS}"
+dnl LDFLAGS_MED="-L${hdf5}/lib -L${medfile}/lib -L${medcoupling}/lib ${LDFLAGS}"
+dnl LIBS_MED="-lhdf5 -lmedC -lmedloader -lmedcoupling -linterpkernel -lmedcouplingremapper   ${LIBS}"
+
+test $hdf5 != no -a $medfile != no -a $medcoupling != no && AC_SUBST(CXXFLAGS_MED,"-I${hdf5}/include -I${medfile}/include -I${medcoupling}/include  ${CXXFLAGS}"  )
+test $hdf5 != no -a $medfile != no -a $medcoupling != no && AC_SUBST(LDFLAGS_MED,"-L${hdf5}/lib -L${medfile}/lib -L${medcoupling}/lib ${LDFLAGS}"  )
+test $hdf5 != no -a $medfile != no -a $medcoupling != no && AC_SUBST(LIBS_MED,"-lhdf5 -lmedC -lmedloader -lmedcoupling -linterpkernel -lmedcouplingremapper   ${LIBS}"  )
+
+
+
+test $dependencies != no && AC_SUBST(CXXFLAGS_MED,"-I$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/BINARIES-CO7/hdf5/include -I$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/BINARIES-CO7/medfile/include -I$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/INSTALL/MEDCOUPLING/include ${CXXFLAGS}"  )
+test $dependencies != no && AC_SUBST(LDFLAGS_MED,"-L$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/BINARIES-CO7/hdf5/lib -L$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/BINARIES-CO7/medfile/lib -L$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/INSTALL/MEDCOUPLING/lib ${LDFLAGS}"  )
+test $dependencies != no && AC_SUBST(LIBS_MED,"-lhdf5 -lmedC -lmedloader -lmedcoupling -linterpkernel -lmedcouplingremapper   ${LIBS}"  )
+
+test $dependencies != no && AC_SUBST(MEDIO_MEDCOUPLING_DIR,"$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/INSTALL/MEDCOUPLING"  )
+test $dependencies != no && AC_SUBST(MEDIO_HDF5_DIR,"$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/BINARIES-CO7/hdf5"  )
+test $dependencies != no && AC_SUBST(MEDIO_MEDFILE_DIR,"$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/BINARIES-CO7/medfile"  )
+
+AC_MSG_RESULT([])
+
+AC_SUBST(CXXFLAGS_MED,[$CXXFLAGS_MED])
+AC_SUBST(LDFLAGS_MED,[$LDFLAGS_MED])
+AC_SUBST(LIBS_MED,[$LIBS_MED])
+
+
+AC_MSG_RESULT([ CXXFLAGS_MED FLAGS    : '$CXXFLAGS_MED'])
+AC_MSG_RESULT([ LDFLAGS_MED  FLAGS    : '$LDFLAGS_MED'])
+AC_MSG_RESULT([ LIBS_MED     FLAGS    : '$LIBS_MED'])
+
+AC_MSG_RESULT([])
 
 test $hdf5 == no -o $medfile == no -o $medcoupling == no && AC_MSG_WARN([
-top-ii-vol will not be configured with med support,
+medio will is not configured with med support,
 you did not provide the flags:
     --with-hdf5
     --with-medfile
     --with-medcoupling
-
- SALOME SUPPORT = OFF
  ])
 dnl ---------------------------------------------------------------
 
@@ -409,11 +431,14 @@ AC_MSG_RESULT([])
 test "$dependencies"          == "no"     &&  AC_MSG_RESULT([ Dependencies  compilation  : DISABLE])
 test "$dependencies"          != "no"     &&  AC_MSG_RESULT([ Dependencies  compilation  : ENABLED])
 AC_MSG_RESULT([])
-test "$hdf5"        != "no" 						&&  AC_MSG_RESULT([ Hdf5        : YES $hdf5])
-test "$hdf5"        == "no" 						&&  AC_MSG_RESULT([ Hdf5        : NO])
-test "$medfile"     != "no" 						&&  AC_MSG_RESULT([ medfile     : YES $medfile])
-test "$medfile"     == "no" 						&&  AC_MSG_RESULT([ medfile     : NO])
-test "$medcoupling" != "no" 						&&  AC_MSG_RESULT([ medcoupling : YES $medcoupling])
-test "$medcoupling" == "no" 						&&  AC_MSG_RESULT([ medcoupling : NO])
+test "$hdf5"         != "no"                         						&&  AC_MSG_RESULT([ Hdf5        : YES $hdf5])
+test "$hdf5"         == "no" -a "$dependencies" == "no"					&&  AC_MSG_RESULT([ Hdf5        : NO])
+test "$dependencies" != "no"					                          &&  AC_MSG_RESULT([ Hdf5        : YES $MEDIO_HDF5_DIR])
+test "$medfile"      != "no" 						                        &&  AC_MSG_RESULT([ medfile     : YES $medfile])
+test "$medfile"      == "no" -a "$dependencies" == "no"					&&  AC_MSG_RESULT([ medfile     : NO])
+test "$dependencies" != "no" 						                        &&  AC_MSG_RESULT([ medfile     : YES $MEDIO_MEDFILE_DIR])
+test "$medcoupling"  != "no" 						                        &&  AC_MSG_RESULT([ medcoupling : YES $medcoupling])
+test "$medcoupling"  == "no" -a "$dependencies" == "no"				  &&  AC_MSG_RESULT([ medcoupling : NO])
+test "$dependencies" != "no" 						                        &&  AC_MSG_RESULT([ medcoupling : YES $MEDIO_MEDCOUPLING_DIR])
 AC_MSG_RESULT([])
 SECTION_TITLE([               END               ])

@@ -58,8 +58,9 @@ download-dependencies:
 #  - User can override download by providing ext/mfront-$(MFRONT_VERSION).tar.gz
 #--------------------------------------------------------------------------------
 
+medcoupling-build: MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI/INSTALL/MEDCOUPLING/lib/libmedcoupling.so
 
-medcoupling-build: MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI.tar.gz
+MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI/INSTALL/MEDCOUPLING/lib/libmedcoupling.so: MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI.tar.gz
 	@echo ""
 	@echo "*============================================================*"
 	@echo " MEDCOUPLING installation began for you be patient:   "

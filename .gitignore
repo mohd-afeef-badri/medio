@@ -55,6 +55,7 @@ launch.sh
 
 ## TEST  FILE ##
 #test*
+*.vtu
 
 ## AUTOCONF FILES ##
 Makefile

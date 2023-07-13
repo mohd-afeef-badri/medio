@@ -11,17 +11,12 @@ all-local: $(DEP1)
 	@echo " Compilation list $(LIST_COMPILE)"
 
 $(DEP1): medio.cpp medio.hpp medioSaveMedMesh.hpp medioLoadMedMesh.hpp medioGetGroupLabel.hpp
-if HAVEMED
 	$(FFCXX) -auto medio.cpp $(CXXFLAGS_MED)  $(LDFLAGS_MED) $(LIBS_MED) -DMEDCOUPLING
-else !HAVEMED
-	@echo ""
-endif
 
 install-exec-local:
 	@mkdir -p ${prefix}
-if HAVEMED
-	@cp $(DEP1) ${prefix}/$(DEP1)
-endif
+	@mkdir -p ${prefix}/lib
+	@cp $(DEP1) ${prefix}/lib/$(DEP1)
 
 clean-local:
 	@echo ""
