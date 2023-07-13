@@ -1,32 +1,92 @@
-# Prerequisites
-*.d
+## LOG FILES ##
+*.log
 
-# Compiled Object files
-*.slo
-*.lo
+## SYSTEM BACKUP FILES ##
+*~
+*.~
+*.swp
+
+## TEX DOCUMENTATION FILES ##
+*Readme.tex
+*Changelog.tex
+
+## Video files ##
+*.mp4
+*.avi
+
+## TEMP FILES ##
+*.tmp
+repo-activity.txt
+
+## OUTPUT FILES ##
+.output
+.info
+*a.out
+test-driver
+compile
+
+##Exec Files ##
+*PSD_PreProcess
+*PSD_Solve
+*PSD_Solve_Seq
+
+## ORIGINAL FILES ##
+*.orig
+
+## MESH FILES ##
+*.msh
+*.medh
+*.med
+
+## MESH info files ##
+*_INFO.txt
+
+## PANDOC FILES ##
+*.ini
+
+## SHARED OBJECT FILES ##
 *.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
 *.so
+
+## PLOTTING DATA FILES ##
+*.data
+*.dat
+
+## FILES FOR CLUSTER ##
+launch.sh
+
+## TEST  FILE ##
+#test*
+
+## AUTOCONF FILES ##
+Makefile
+Makefile.in
+/aclocal.m4
+/autom4te.cache/
+/config.*
+/configure
+/depcomp
+/install-sh
+/libtool
+/ltmain.sh
+/m4/
+/missing
+/stamp-h?
+.deps/
+.dirstamp
+.libs/
+*.l[ao]
+*.in
+*.nfs*
+
+
+## DOCUMENTATION FILES ##
+Readme.html
+Readme.pdf
+Changelog.pdf
+Changelog.html
+
+## MacOS FILES TO IGNORE ##
+*.DS_Store
 *.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+*-e
