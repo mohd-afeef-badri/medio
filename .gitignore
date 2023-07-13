@@ -26,9 +26,7 @@ test-driver
 compile
 
 ##Exec Files ##
-*PSD_PreProcess
-*PSD_Solve
-*PSD_Solve_Seq
+*MedCoupling_Test
 
 ## ORIGINAL FILES ##
 *.orig
@@ -92,3 +90,7 @@ Changelog.html
 *-e
 
 ./configure
+
+## ext files ##
+ext/*.tar.gz
+ext/MEDCOUPLING*

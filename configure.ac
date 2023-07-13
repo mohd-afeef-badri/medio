@@ -15,7 +15,6 @@ define(SECTION_TITLE,
 ])
 
 
-
 AU_ALIAS([ACX_FF], [AX_FF])
 AC_DEFUN([AX_FF], [
 AC_PREREQ([2.71])
@@ -66,6 +65,29 @@ AC_ARG_WITH([medfile],
 AC_ARG_WITH([medcoupling],
 	[  --with-medcoupling=        medcoupling root path : (e.g. --with-salome=/home/salome/INSTALL/MEDCOUPLING)],
         [medcoupling="$withval"], [medcoupling="no"])
+
+
+AC_ARG_WITH([dependencies],
+	[  --with-dependencies=         Dependencies installation : (e.g. --with-dependencies=yes)],
+        [dependencies="$withval"], [dependencies="no"])
+
+
+AC_SUBST([dependencies])
+AM_CONDITIONAL([BUILDDEPENDENCIES], [test $dependencies != no])
+test "$dependencies" == "no" && AC_MSG_WARN([
+
+ medio can automatically compile its dependencies
+ MedCoupling, MEdfile, Hdf5 for you.
+ In order to do so
+
+ --with-dependencies=yes
+
+ The wget command will be used  to download these,
+ if you wish to provided already downloaded files,
+ simply add the MEDCOUPLING-$$VERSION-MPI.tar.gz
+ in /ext folder.
+ ])
+
 
 
 AU_ALIAS([ACX_MPI], [AX_MPI])
@@ -313,7 +335,7 @@ dnl ---------------------------------------------------------------
 
 
 dnl ---------------------------------------------------------------
-dnl Associate appropriate suffix for diffrent os
+dnl Associate appropriate suffix for different os
 dnl ---------------------------------------------------------------
 SECTION_TITLE([      checking for operating system type    ])
 
@@ -370,12 +392,11 @@ dnl Print results
 AC_MSG_RESULT([])
 AC_MSG_RESULT([ medio version $VERSION configured successfully.])
 AC_MSG_RESULT([])
-AC_MSG_RESULT([ medio install  path  : '$prefix'])
+AC_MSG_RESULT([ install  path      : '$prefix'])
 AC_MSG_RESULT([])
 AC_MSG_RESULT([ C++ compiler       : '$CXX'])
 AC_MSG_RESULT([ C compiler         : '$CC'])
-AC_MSG_RESULT([])
-AC_MSG_RESULT([ C/C++ compiler flags   : '$CXXFLAGS'])
+AC_MSG_RESULT([ C/C++  flags       : '$CXXFLAGS'])
 AC_MSG_RESULT([])
 AC_MSG_RESULT([ MPIRUN             : '$MPIRUN'])
 AC_MSG_RESULT([ MPIC++ compiler    : '$MPICXX'])
@@ -385,12 +406,14 @@ AC_MSG_RESULT([ FreeFEM compiler   : '$FF'])
 test "$LDFLAGS" != "" && AC_MSG_RESULT([ Building with '$LDFLAGS' for linker flags.])
 test "$LIBS"    != "" && AC_MSG_RESULT([ Building with '$LIBS' libraries.])
 AC_MSG_RESULT([])
+test "$dependencies"          == "no"     &&  AC_MSG_RESULT([ Dependencies  compilation  : DISABLE])
+test "$dependencies"          != "no"     &&  AC_MSG_RESULT([ Dependencies  compilation  : ENABLED])
+AC_MSG_RESULT([])
 test "$hdf5"        != "no" 						&&  AC_MSG_RESULT([ Hdf5        : YES $hdf5])
 test "$hdf5"        == "no" 						&&  AC_MSG_RESULT([ Hdf5        : NO])
 test "$medfile"     != "no" 						&&  AC_MSG_RESULT([ medfile     : YES $medfile])
 test "$medfile"     == "no" 						&&  AC_MSG_RESULT([ medfile     : NO])
 test "$medcoupling" != "no" 						&&  AC_MSG_RESULT([ medcoupling : YES $medcoupling])
 test "$medcoupling" == "no" 						&&  AC_MSG_RESULT([ medcoupling : NO])
-test $hdf5 	    != no -a $medfile != no -a $medcoupling != no 	&&  AC_MSG_RESULT([ med support : YES])
-test $hdf5          == no -o $medfile == no -o $medcoupling == no 	&&  AC_MSG_RESULT([ med support : NO])
 AC_MSG_RESULT([])
+SECTION_TITLE([               END               ])
