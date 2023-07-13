@@ -90,3 +90,5 @@ Changelog.html
 *.DS_Store
 *.dylib
 *-e
+
+./configure
