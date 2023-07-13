@@ -1,6 +1,11 @@
 medio is a library that enables input and output of  mesh files for FreeFEM in `med` format. 
 
-### Compilation ###
+### Dependencies ##
+- FreeFEM
+- MedCoupling
+- MPI
+
+### Compilation with precompiled MedCoupling (install procedure 1)###
 
 Here is how a typical compilation process looks like. 
 
@@ -29,6 +34,36 @@ make
 ```bash
 make install
 ```
+
+### Compilation with MedCoupling (install procedure 2)###
+
+Here is how a typical compilation process looks like. 
+
+```bash 
+autoreconf -i
+```
+
+```bash
+./configure \
+--prefix=/home/Work/tmp/medio \
+--with-dependencies
+```
+
+
+here,
+
+-  medio will be installed in `/home/Work/tmp/medio`
+- the root directories for `medcoupling` , `medfile`, and `hdf5` whill be found in `ext/MEDCOUPLING-9.11.0-MPI/INSTALL`
+- finally FreeFEM is assumed to be installed, and present in your `$PATH`. If not use flag `--with-FreeFEM` to configure with FreeFEM installed elsewhere. 
+
+```bash
+make
+```
+
+```bash
+make install
+```
+### Check the compilation ###
 
 ```
 make check
