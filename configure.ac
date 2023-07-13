@@ -2,10 +2,10 @@ AC_INIT([medio],[1.0],[mohd-afeef.badri@cea.fr])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 
 AC_CONFIG_HEADERS([config.h])
-dnl AC_PREFIX_PROGRAM (gcc)
 
-
+dnl ---------------------------------------------------------------
 dnl Small macro to print out a nice, pretty section title.
+dnl ---------------------------------------------------------------
 define(SECTION_TITLE,
 [
 	echo >& AS_MESSAGE_FD
@@ -77,7 +77,7 @@ AM_CONDITIONAL([BUILDDEPENDENCIES], [test $dependencies != no])
 test "$dependencies" == "no" && AC_MSG_WARN([
 
  medio can automatically compile its dependencies
- MedCoupling, MEdfile, Hdf5 for you.
+ MedCoupling, Medfile, Hdf5 for you.
  In order to do so
 
  --with-dependencies=yes
@@ -212,9 +212,6 @@ AC_LANG(C)
 AX_MPI
 
 
-
-
-
 AC_ARG_WITH(MPICXX,
 	[  --with-MPICXX=          path of the MPI C++ compiler to be used
 	                  (e.g. --with-MPICXX=your/MPIC++/Install/path/bin/mpic++)],
@@ -258,7 +255,7 @@ test "$MPICC" == "$CC" && AC_MSG_ERROR([
 
 SECTION_TITLE([      checking for a FF++ compilers     ])
 AX_FF
-test "$dependencies" == "no" -a  "$FF" == "no" && AC_MSG_ERROR([
+test "$FF" == "no" && AC_MSG_ERROR([
   Required  program  'FreeFem++'  not  found.
   If 'FreeFem++' is not  present in  /usr/bin
   or in  /usr/local/bin  consider  using  the
@@ -267,7 +264,7 @@ test "$dependencies" == "no" -a  "$FF" == "no" && AC_MSG_ERROR([
                                    ])
 
 AX_FFCXX
-test "$dependencies" == "no" -a  "$FFCXX" == "no" && AC_MSG_ERROR([
+test "$FFCXX" == "no" && AC_MSG_ERROR([
   Required  program   'ff-++'   not    found.
   If  'ff-++'  is  not  present  in  /usr/bin
   or  in  /usr/local/bin consider  using  the
@@ -276,7 +273,7 @@ test "$dependencies" == "no" -a  "$FFCXX" == "no" && AC_MSG_ERROR([
                                    ])
 
 AX_FFCXXDEP
-test "$dependencies" == "no" -a  "$FFCXXDEP" == "no" && AC_MSG_ERROR([
+test "$FFCXXDEP" == "no" && AC_MSG_ERROR([
   Required  program   'ff-get-dep'   not    found.
   If  'ff-get-dep'  is  not  present  in  /usr/bin
   or  in  /usr/local/bin consider  using  the
@@ -285,7 +282,7 @@ test "$dependencies" == "no" -a  "$FFCXXDEP" == "no" && AC_MSG_ERROR([
                                    ])
 
 AX_FFMPI
-test "$dependencies" == "no" -a  "$FFMPI" == "no" && AC_MSG_ERROR([
+test "$FFMPI" == "no" && AC_MSG_ERROR([
   Required  program  'ff-mpirun'  not  found.
   If 'ff-mpirun' is not present  in  /usr/bin
   or in  /usr/local/bin  consider  using  the
