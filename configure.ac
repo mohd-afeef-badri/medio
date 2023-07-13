@@ -356,8 +356,11 @@ SECTION_TITLE([    generating the required makefiles   ])
 
 AC_CONFIG_FILES([
  Makefile
- cpp/Makefile
+ ext/Makefile
+ src/Makefile
  test/Makefile
+ test/FreeFEM/Makefile
+ test/unit/Makefile
 ])
 AC_OUTPUT
 

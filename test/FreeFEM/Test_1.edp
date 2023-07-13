@@ -18,7 +18,7 @@
 
 *******************************************************************************/
 
-load    "./../cpp/medio";         // load med io lib
+load    "./../../src/medio";         // load med io lib
 load    "iovtk"                   // load vtk io lib
 load    "msh3"
 

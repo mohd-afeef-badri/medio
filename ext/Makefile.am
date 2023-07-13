@@ -1,19 +1,12 @@
-SUBDIRS = unit FreeFEM
-
-LIST_COMPILE= Test_1 \
-Test_2
-
-all-local:
-	@echo ""
+MEDCOUPLING_VERSION=9.11
+SALOME_VERSION=9.11
 
 check-local:
 	@echo ""
 	@echo "*============================================================*"
-	@echo " TESTING  FINISHED                   "
+	@echo " Nothing to check here:"
 	@echo "*============================================================*"
 	@echo ""
-
-
 
 clean-local:
 	@echo ""
@@ -23,7 +16,6 @@ clean-local:
 	@echo ""
 	rm  -f *~
 
-
 maintainer-clean-local: clean-local
 	@echo ""
 	@echo "*============================================================*"
@@ -31,3 +23,10 @@ maintainer-clean-local: clean-local
 	@echo "*============================================================*"
 	@echo ""
 	rm  -rf Makefile Makefile.in
+
+install-exec-local:
+	@echo ""
+	@echo "*============================================================*"
+	@echo " Nothing to install here:"
+	@echo "*============================================================*"
+	@echo ""
