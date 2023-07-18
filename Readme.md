@@ -4,11 +4,13 @@ Medio is a library designed to facilitate the input and output of mesh files for
 
 Medio bridges the gap between FreeFEM and SALOME, enabling seamless data exchange and promoting interoperability between these powerful tools.
 
-### Dependencies ##
+## Dependencies ##
 To compile and use Medio, you will need the following dependencies:
 - FreeFEM
 - MedCoupling
 - MPI
+
+## Compilation ##
 
 ### Compilation with precompiled MedCoupling (install procedure 1)
 
@@ -103,3 +105,40 @@ to use and run medio please make sure that your `$LD_LIBRARY_PATH` variable cont
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/Install/TarPackages/SALOME-9.10.0-native-UB22.04/BINARIES-UB22.04/MEDCOUPLING/lib:/home/Install/TarPackages/SALOME-9.10.0-native-UB22.04/BINARIES-UB22.04/medfile/lib:/home/Install/TarPackages/SALOME-9.10.0-native-UB22.04/BINARIES-UB22.04/hdf5/lib
 ```
 By following these steps, you will have successfully compiled and installed Medio with MedCoupling support for FreeFEM, allowing smooth mesh file handling and data exchange between FreeFEM and SALOME. Don't forget to set the necessary environment variables to ensure seamless operation. Enjoy utilizing the power and efficiency of medio in your computational simulations!
+
+## Examples ##
+
+##### Example 1: saving the med mesh #####
+
+`savemedmesh([MESH], [STRING])` used to save two-dimensional (`mesh`), three-dimensional (mesh3), three-dimensional surfasic(meshS), three-dimensional curve (meshL) meshes from FreeFEM. Simple example is shown for two-dimensional (`mesh`) case, the same logic works for others. find more examples in `test/FreeFEM/Test_1.edp`
+
+```
+load    "medio";               // load medio lib
+mesh Th = square (12,12);      // 2D mesh 
+savemedmesh(Th, "test2D.med"); // save to med format 
+```
+
+##### Example 2: loading the med mesh #####
+
+`[MESH] = loadmedmesh([STRING],  meshname = [STRING])` used to load two-dimensional (`mesh`), three-dimensional (mesh3), three-dimensional surfasic(meshS), three-dimensional curve (meshL) meshes from FreeFEM. Simple example is shown for two-dimensional (`mesh`) case, the same logic works for others. find more examples in `test/FreeFEM/Test_2.edp`
+
+```
+load    "medio";               // load medio lib
+mesh Th = square (31,1);
+savemedmesh(Th, "test2DLoad.med");
+Th=loadmedmesh("test2DLoad.med", meshname = "TriangularMesh");
+plot (Th,wait=1);
+```
+
+##### Example 3: getting boundary tags via group names #####
+
+For any finite element mesh SALOME lets you create groups which can be named [STRINGS] so that boundary conditions or other conditions (initilization, multi-material..) can be applied upon these during solving. However within FreeFEM world these groups are represented by [INTEGER] tags. medio function `getMedLabelsOnGroup(INT[INT], [STRING],[STRING])` provides interface so that [STRING] group lables can be used in FreeFEM. As an example
+
+```
+load    "medio";               // load medio lib
+int[int] labelMed;
+getMedLabelsOnGroup( labelMed,"test2DLoad.med","edge_group_1");
+cout << labelMed << endl;
+
+varf Dirichlet(u,v) = on(labelMed, u =0);
+```
