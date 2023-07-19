@@ -20,12 +20,12 @@ check-header:
 
 Test_1: Test_1.edp
 	@echo "Test_1 : medio save test"
-	@$(FFMPI) -np 1 Test_1.edp -v 10
+	@$(FFMPI) -np 1 Test_1.edp -v 1 > Test_1.log
 	@echo "  PASSED "
 
 Test_2: Test_2.edp
 	@echo "Test_2 : medio load test"
-	@$(FFMPI) -np 1 Test_2.edp -v 10
+	@$(FFMPI) -np 1 Test_2.edp -v 1 > Test_2.log
 	@echo "  PASSED "
 
 
