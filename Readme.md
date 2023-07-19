@@ -6,8 +6,8 @@ Medio bridges the gap between FreeFEM and SALOME, enabling seamless data exchang
 
 ## Dependencies ##
 To compile and use Medio, you will need the following dependencies:
-- FreeFEM
-- MedCoupling
+- FreeFEM (version 4.13)
+- MedCoupling (version 9.11)
 - MPI
 
 ## Compilation ##
