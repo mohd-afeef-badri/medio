@@ -1,5 +1,3 @@
-Medio is a library designed to facilitate the input and output of mesh files for FreeFEM in the `med` format native mesh format from (an open-source pre/post processing tool).
-
 Medio is a library designed to facilitate the input and output of mesh files for FreeFEM in the `med` format, which is the native mesh format utilized by [SALOME](https://www.salome-platform.org/), an open-source pre/post-processing tool known for its robust capabilities in computational engineering and simulation.
 
 Medio bridges the gap between FreeFEM and SALOME, enabling seamless data exchange and promoting interoperability between these powerful tools.
