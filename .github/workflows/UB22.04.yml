@@ -1,9 +1,15 @@
-name: C/C++ CI
+name: UB22.04
 
 on:
   push:
+    paths-ignore:
+      - '**/README.md'
+      - '**/.gitignore'
     branches: [ "main" ]
   pull_request:
+    paths-ignore:
+      - '**/README.md'
+      - '**/.gitignore'
     branches: [ "main" ]
 
 jobs:
