@@ -5,7 +5,9 @@ mcUT3.hpp \
 mcUT4.hpp \
 mcUT5.hpp \
 mcUT6.hpp \
-mcUT7.hpp
+mcUT7.hpp \
+mcUT8.hpp \
+mcUT9.hpp
 
 all-local: MedCoupling_Test
 	@echo ""

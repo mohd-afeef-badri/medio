@@ -39,6 +39,8 @@ using namespace MEDCoupling;
 #include "mcUT5.hpp"
 #include "mcUT6.hpp"
 #include "mcUT7.hpp"
+#include "mcUT8.hpp"
+#include "mcUT9.hpp"
 
 int main(){
 
@@ -49,6 +51,8 @@ int err = UnitTest1();
     err = UnitTest5();
     err = UnitTest6();
     err = UnitTest7();
+    err = UnitTest8();
+    err = UnitTest9();
 return 1;
 }
 
