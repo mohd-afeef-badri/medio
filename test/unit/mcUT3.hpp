@@ -21,13 +21,19 @@
 
      -------------------------------------------------------------------
 
-     Acknowledgements: Thanks to C. Bourcier for his advices and help
+     Acknowledgments: Thanks to C. Bourcier for his advice and help
      with medCoupling.
 
 *******************************************************************************/
 
 int UnitTest3()
 {
+
+cout << "//-----------------------------------------------------------------//\n"
+        "// Starting Unit Test 3\n"
+        "//-----------------------------------------------------------------//\n";
+
+cout << "   # creating mesh Node array \n";
 
 // Nodes  of  the  3D mesh
 // i.e x,y,z coordinates
@@ -42,19 +48,28 @@ double meshNodes[12]={
 int  nNodes      = (sizeof(meshNodes)/sizeof(meshNodes[0]))/3;
 int  nNodesArray = (sizeof(meshNodes)/sizeof(meshNodes[0]))  ;
 
+cout << "   # creating cellConnectivity \n";
+
+
 // Connectivity for the Cells
 // of the 2D mesh
 mcIdType cellConnectivity[48]={
 0,1,2,3  // tetra
 };
 
+cout << "   # creating 3D mesh \n";
+
   // create mesh
   MEDCouplingUMesh *medMesh3d=MEDCouplingUMesh::New();
+
+cout << "   # set basic attributes \n";
 
   // set basic attributes
   medMesh3d->setMeshDimension(3);          // dimension of the mesh
   medMesh3d->allocateCells(1);             // total number of cells
   medMesh3d->setName("TetrahedralMesh");   // name of mesh
+
+cout << "   # add cells manually \n";
 
   // add cells manually
   medMesh3d->insertNextCell(INTERP_KERNEL::NORM_TETRA4,4,cellConnectivity);
@@ -63,6 +78,9 @@ mcIdType cellConnectivity[48]={
 //---------------------------------------------------------------------------------
 // 0D mesh creation i.e the nodes
 //---------------------------------------------------------------------------------
+
+cout << "   # creating 0D mesh \n";
+
   // add nodes
   DataArrayDouble *myCoords=DataArrayDouble::New();
   myCoords->alloc(nNodes,3);                  // tottal number of points
@@ -74,10 +92,17 @@ mcIdType cellConnectivity[48]={
   myCoords->decrRef();
 
 //---------------------------------------------------------------------------------
-// wirte mesh in med and vtu formats
+// write mesh in med and vtu formats
 //---------------------------------------------------------------------------------
+
+cout << "   # write mesh in med and vtu \n";
+
   WriteUMesh("mcUT3.med",medMesh3d,true);
   medMesh3d->writeVTK("mcUT3n.vtu");
+
+cout << "//----------------------//\n"
+        "// End of Unit Test 3\n"
+        "//----------------------//\n\n";
 
   return 1;
 }

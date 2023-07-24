@@ -22,6 +22,12 @@
 int UnitTest4()
 {
 
+cout << "//-----------------------------------------------------------------//\n"
+        "// Starting Unit Test 4\n"
+        "//-----------------------------------------------------------------//\n";
+
+cout << "   # creating mesh Node array \n";
+
 // Nodes  of  the  2D mesh
 // i.e x and y coordinates
 double meshNodes[48]={
@@ -55,6 +61,8 @@ double meshNodes[48]={
 int  nNodes      = (sizeof(meshNodes)/sizeof(meshNodes[0]))/2;
 int  nNodesArray = (sizeof(meshNodes)/sizeof(meshNodes[0]))  ;
 
+cout << "   # creating cellConnectivity \n";
+
 // Connectivity for the Cells
 // of the 2D mesh
 mcIdType cellConnectivity[56]={
@@ -76,13 +84,20 @@ mcIdType cellConnectivity[56]={
 //---------------------------------------------------------------------------------
 // 2D mesh creation
 //---------------------------------------------------------------------------------
+
+cout << "   # creating 2D mesh \n";
+
   // create mesh for 2D polygons
   MEDCouplingUMesh *medMesh2d=MEDCouplingUMesh::New();
+
+cout << "   # set basic attributes \n";
 
   // set basic attributes
   medMesh2d->setMeshDimension(2);           // dimension of the mesh
   medMesh2d->allocateCells(10);             // total number of cells
   medMesh2d->setName("PolyMesh");           // name of mesh
+
+cout << "   # add cells manually \n";
 
   // add cells manually
   medMesh2d->insertNextCell(INTERP_KERNEL::NORM_POLYGON,5,cellConnectivity);
@@ -99,13 +114,20 @@ mcIdType cellConnectivity[56]={
 //---------------------------------------------------------------------------------
 // 1D mesh creation
 //---------------------------------------------------------------------------------
+
+cout << "   # creating 1D mesh \n";
+
   // create mesh for 1D lines
   MEDCouplingUMesh *medMesh1d=MEDCouplingUMesh::New();
+
+cout << "   # set basic attributes \n";
 
   // set basic attributes
   medMesh1d->setMeshDimension(1);           // dimension of the mesh
   medMesh1d->allocateCells(4);              // total number of lines
   medMesh1d->setName("PolyMesh");           // name of mesh
+
+cout << "   # add cells manually \n";
 
   // add lines manually
   medMesh1d->insertNextCell(INTERP_KERNEL::NORM_SEG2,2,cellConnectivity+48);
@@ -117,6 +139,9 @@ mcIdType cellConnectivity[56]={
 //---------------------------------------------------------------------------------
 // 0D mesh creation i.e the nodes
 //---------------------------------------------------------------------------------
+
+cout << "   # creating 2D mesh \n";
+
   // add nodes
   DataArrayDouble *myCoords=DataArrayDouble::New();
   myCoords->alloc(nNodes,2); // tottal number of points
@@ -131,13 +156,18 @@ mcIdType cellConnectivity[56]={
 //---------------------------------------------------------------------------------
 // Create high level API med mesh (MedFile)
 //---------------------------------------------------------------------------------
+
+cout << "   # Create high level API med mesh (MedFile) \n";
+
   MCAuto<MEDFileUMesh> finalMesh = MEDFileUMesh::New();
   finalMesh->setMeshAtLevel(0 ,medMesh2d);
   finalMesh->setMeshAtLevel(-1,medMesh1d);
 
 //---------------------------------------------------------------------------------
-// Create famialies associated
+// Create families associated
 //---------------------------------------------------------------------------------
+
+cout << "   # Create families associated \n";
 
   MCAuto<DataArrayIdType> fam2d = DataArrayIdType::New();
   MCAuto<DataArrayIdType> fam1d = DataArrayIdType::New();
@@ -163,6 +193,8 @@ mcIdType cellConnectivity[56]={
 // Create groups associated
 //---------------------------------------------------------------------------------
 
+cout << "   # Create groups associated \n";
+
   std::map<std::string, std::vector<std::string> > theGroups;
   theGroups["zone_1"].push_back("cell_zone_1");
   theGroups["zone_2"].push_back("cell_zone_2");
@@ -173,9 +205,16 @@ mcIdType cellConnectivity[56]={
   finalMesh->setGroupInfo(theGroups);
 
 //---------------------------------------------------------------------------------
-// wirte mesh in med and vtu formats
+// write mesh in med
 //---------------------------------------------------------------------------------
+
+cout << "   # write mesh in med \n";
+
   finalMesh->write("mcUT4.med",2);          // med
+
+cout << "//----------------------//\n"
+        "// End of Unit Test 4\n"
+        "//----------------------//\n\n";
 
   return 1;
 }

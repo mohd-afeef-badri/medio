@@ -21,13 +21,19 @@
 
      -------------------------------------------------------------------
 
-     Acknowledgements: Thanks to C. Bourcier for his advices and help
+     Acknowledgments: Thanks to C. Bourcier for his advice and help
      with medCoupling.
 
 *******************************************************************************/
 
 int UnitTest1()
 {
+
+cout << "//-----------------------------------------------------------------//\n"
+        "// Starting Unit Test 1\n"
+        "//-----------------------------------------------------------------//\n";
+
+cout << "   # creating mesh Node array \n";
 
 // Nodes  of  the  2D mesh
 // i.e x and y coordinates
@@ -59,8 +65,11 @@ double meshNodes[48]={
 0	 ,0.75
 };
 
+
 int  nNodes      = (sizeof(meshNodes)/sizeof(meshNodes[0]))/2;
 int  nNodesArray = (sizeof(meshNodes)/sizeof(meshNodes[0]))  ;
+
+cout << "   # creating cellConnectivity \n";
 
 // Connectivity for the Cells
 // of the 2D mesh
@@ -76,13 +85,19 @@ mcIdType cellConnectivity[48]={
 6 ,19, 15 ,21, 7           // polygon
 };
 
+cout << "   # creating mesh \n";
+
   // create mesh
   MEDCouplingUMesh *medMesh2d=MEDCouplingUMesh::New();
+
+cout << "   # set basic attributes \n";
 
   // set basic attributes
   medMesh2d->setMeshDimension(2);           // dimension of the mesh
   medMesh2d->allocateCells(10);             // total number of cells
   medMesh2d->setName("PolyMesh");           // name of mesh
+
+cout << "   # add cells manually \n";
 
   // add cells manually
   medMesh2d->insertNextCell(INTERP_KERNEL::NORM_POLYGON,5,cellConnectivity);
@@ -99,20 +114,31 @@ mcIdType cellConnectivity[48]={
 //---------------------------------------------------------------------------------
 // 0D mesh creation i.e the nodes
 //---------------------------------------------------------------------------------
+
+cout << "   # creating 0D mesh \n";
+
   // add nodes
   DataArrayDouble *myCoords=DataArrayDouble::New();
-  myCoords->alloc(nNodes,2);                  // tottal number of points
+  myCoords->alloc(nNodes,2);                  // total number of points
   myCoords->setInfoOnComponent(0,"x [m]");    // info attribute on x
   myCoords->setInfoOnComponent(1,"y [m]");    // info attribute on y
   std::copy(meshNodes, meshNodes+nNodesArray, myCoords->getPointer());
   medMesh2d->setCoords(myCoords);
   myCoords->decrRef();
 
+
 //---------------------------------------------------------------------------------
-// wirte mesh in med and vtu formats
+// write mesh in med and vtu formats
 //---------------------------------------------------------------------------------
+
+cout << "   # write mesh in med and vtu \n";
+
   WriteUMesh("mcUT1.med",medMesh2d,true);
   medMesh2d->writeVTK("mcUT1.vtu");
+
+cout << "//----------------------//\n"
+        "// End of Unit Test 1\n"
+        "//----------------------//\n\n";
 
   return 1;
 }

@@ -21,7 +21,7 @@
 
      -------------------------------------------------------------------
 
-     Acknowledgements: Thanks to C. Bourcier for his advices and help
+     Acknowledgments: Thanks to C. Bourcier for his advice and help
      with medCoupling.
 
 *******************************************************************************/
@@ -38,25 +38,35 @@ cout << "//-----------------------------------------------------------------//\n
 // read mesh in med
 //---------------------------------------------------------------------------------
 
+cout << "   # read mesh in med \n";
   MCAuto < MEDFileUMesh > finalMeshWithLabel = MEDFileUMesh::New("mcUT4.med");
-
-  cout << "done reading mcUT4.med " << endl;
-  cout << "\n\n " << endl;
+cout << "done reading " << endl;
+cout << "" << endl;
 
 //---------------------------------------------------------------------------------
 // Get label list corresponding to boundary tag
 //---------------------------------------------------------------------------------
 
+cout << "   # Get label list corresponding to boundary tag \n";
   std::vector<long int> famIdsPruned = finalMeshWithLabel->getFamiliesIdsOnGroup("boundary");
   for (auto i: famIdsPruned)
     cout << " famIdsPruned - boundary  " << i << endl;
+cout << "" << endl;
+
 
 //---------------------------------------------------------------------------------
 // Get label list corresponding to zone_3 tag
 //---------------------------------------------------------------------------------
+
+cout << "   # Get label list corresponding to zone_3 tag \n";
   std::vector<long int> famIdsPruned1 = finalMeshWithLabel->getFamiliesIdsOnGroup("zone_3");
   for (auto i: famIdsPruned1)
     cout << " famIdsPruned - zone_3  " << i << endl;
+cout << "" << endl;
+
+cout << "//----------------------//\n"
+        "// End of Unit Test 7\n"
+        "//----------------------//\n\n";
 
   return 1;
 

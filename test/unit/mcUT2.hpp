@@ -21,13 +21,19 @@
 
      -------------------------------------------------------------------
 
-     Acknowledgements: Thanks to C. Bourcier for his advices and help
+     Acknowledgments: Thanks to C. Bourcier for his advice and help
      with medCoupling.
 
 *******************************************************************************/
 
 int UnitTest2()
 {
+
+cout << "//-----------------------------------------------------------------//\n"
+        "// Starting Unit Test 2\n"
+        "//-----------------------------------------------------------------//\n";
+
+cout << "   # creating mesh Node array \n";
 
 // Nodes  of  the  2D mesh
 // i.e x and y coordinates
@@ -62,6 +68,9 @@ double meshNodes[48]={
 int  nNodes      = (sizeof(meshNodes)/sizeof(meshNodes[0]))/2;
 int  nNodesArray = (sizeof(meshNodes)/sizeof(meshNodes[0]))  ;
 
+
+cout << "   # creating cellConnectivity \n";
+
 // Connectivity for the Cells
 // of the 2D mesh
 mcIdType cellConnectivity[56]={
@@ -83,13 +92,20 @@ mcIdType cellConnectivity[56]={
 //---------------------------------------------------------------------------------
 // 2D mesh creation
 //---------------------------------------------------------------------------------
+
+cout << "   # creating 2D mesh \n";
+
   // create mesh for 2D polygons
   MEDCouplingUMesh *medMesh2d=MEDCouplingUMesh::New();
+
+cout << "   # set basic attributes \n";
 
   // set basic attributes
   medMesh2d->setMeshDimension(2);           // dimension of the mesh
   medMesh2d->allocateCells(10);             // total number of cells
   medMesh2d->setName("PolyMesh");           // name of mesh
+
+cout << "   # add cells manually \n";
 
   // add cells manually
   medMesh2d->insertNextCell(INTERP_KERNEL::NORM_POLYGON,5,cellConnectivity);
@@ -106,13 +122,20 @@ mcIdType cellConnectivity[56]={
 //---------------------------------------------------------------------------------
 // 1D mesh creation
 //---------------------------------------------------------------------------------
+
+cout << "   # creating 1D mesh \n";
+
   // create mesh for 1D lines
   MEDCouplingUMesh *medMesh1d=MEDCouplingUMesh::New();
+
+cout << "   # set basic attributes \n";
 
   // set basic attributes
   medMesh1d->setMeshDimension(1);           // dimension of the mesh
   medMesh1d->allocateCells(4);              // total number of lines
   medMesh1d->setName("PolyMesh");           // name of mesh
+
+cout << "   # add lines manually \n";
 
   // add lines manually
   medMesh1d->insertNextCell(INTERP_KERNEL::NORM_SEG2,2,cellConnectivity+48);
@@ -124,6 +147,9 @@ mcIdType cellConnectivity[56]={
 //---------------------------------------------------------------------------------
 // 0D mesh creation i.e the nodes
 //---------------------------------------------------------------------------------
+
+cout << "   # creating 0D mesh \n";
+
   // add nodes
   DataArrayDouble *myCoords=DataArrayDouble::New();
   myCoords->alloc(nNodes,2); // tottal number of points
@@ -143,9 +169,16 @@ mcIdType cellConnectivity[56]={
 
 
 //---------------------------------------------------------------------------------
-// wirte mesh in med
+// write mesh in med
 //---------------------------------------------------------------------------------
+
+cout << "   # write mesh in med \n";
+
   WriteUMeshes("mcUT2.med",finalMesh,true); // med
+
+cout << "//----------------------//\n"
+        "// End of Unit Test 2\n"
+        "//----------------------//\n\n";
 
   return 1;
 }

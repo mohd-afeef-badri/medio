@@ -21,7 +21,7 @@
 
      -------------------------------------------------------------------
 
-     Acknowledgements: Thanks to C. Bourcier for his advices and help
+     Acknowledgements: Thanks to C. Bourcier for his advice and help
      with medCoupling.
 
 *******************************************************************************/
@@ -37,15 +37,28 @@ cout << "//-----------------------------------------------------------------//\n
 // read mesh in medfile mesh
 //---------------------------------------------------------------------------------
 
+cout << "   # read mesh in med \n";
   MCAuto < MEDFileUMesh > finalMeshWithLabel = MEDFileUMesh::New("mcUT4.med");
+cout << "      done reading " << endl;
+cout << "" << endl;
+
+cout << "   # get info on mesh families \n";
   const DataArrayIdType * famIds  = finalMeshWithLabel->getFamilyFieldAtLevel(0);
   const DataArrayIdType * famIds1d  = finalMeshWithLabel->getFamilyFieldAtLevel(-1);
+cout << "" << endl;
 
+cout << "   # cell_family info \n";
   for (int i=0; i < famIds->getNumberOfTuples(); i++)
     cout << " cell_family " << famIds->getIJ(i,0) << endl;
+cout << "" << endl;
 
+cout << "   # boundary_family info \n";
   for (int i=0; i < famIds1d->getNumberOfTuples(); i++)
     cout << " boundary_family " << famIds1d->getIJ(i,0) << endl;
+
+cout << "//----------------------//\n"
+        "// End of Unit Test 6\n"
+        "//----------------------//\n\n";
 
   return 1;
 

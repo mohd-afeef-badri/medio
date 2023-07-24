@@ -47,8 +47,8 @@ int err = UnitTest1();
     err = UnitTest3();
     err = UnitTest4();
     err = UnitTest5();
-//    err = UnitTest6();
-//    err = UnitTest7();
+    err = UnitTest6();
+    err = UnitTest7();
 return 1;
 }
 
