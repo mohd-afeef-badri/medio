@@ -95,3 +95,6 @@ Changelog.html
 ## ext files ##
 ext/*.tar.gz
 ext/MEDCOUPLING*
+
+## allowed files ##
+!Polymesh_2D_VectorField.med
