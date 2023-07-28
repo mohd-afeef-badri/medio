@@ -7,7 +7,8 @@ Test_loadmed_3D  \
 Test_loadmed_3DS \
 Test_loadmed_3DC \
 Test_redmedlabels_2D  \
-Test_redmedlabels_3D
+Test_redmedlabels_3D  \
+Test_loadmedfield_2D
 
 all-local:
 	@echo ""
@@ -87,6 +88,16 @@ Test_redmedlabels_2D: Test_redmedlabels_2D.edp
 Test_redmedlabels_3D: Test_redmedlabels_3D.edp
 	@echo "Test_redmedlabels_3D : redmedlabels load test 3D"
 	@$(FFMPI) -np 1 Test_redmedlabels_3D.edp -v 1 > Test_redmedlabels_3D.log
+	@echo "  PASSED "
+
+
+#-----------------------------------------------------------------------
+## loadmedfile testing 
+#-----------------------------------------------------------------------
+
+Test_loadmedfield_2D: Test_loadmedfield_2D.edp
+	@echo "Test_loadmedfield_2D : medio laod filed test 2D"
+	@$(FFMPI) -np 1 Test_loadmedfield_2D.edp -v 1 > Test_loadmedfield_2D.log
 	@echo "  PASSED "
 
 clean-local:
