@@ -111,9 +111,9 @@ cout << "   # read mesh and field in med \n";
   MEDCouplingFieldDouble *f2=dynamic_cast<MEDCouplingFieldDouble *>(ReadFieldNode("mcUT4_field_nodes.med","PolyMesh",0,"VectorFieldOnNodes",2,3));
 cout << "" << endl;
 
-//double *nodesRead=f2->getArray()->getPointer();
-//for (int i = 0; i < nbData; i++)
-//   cout << "f2 [ " << i << " ] = " <<  nodesRead[i] << endl;
+double *nodesRead=f2->getArray()->getPointer();
+for (int i = 0; i < nbData; i++)
+   cout << "f2 [ " << i << " ] = " <<  nodesRead[i] << endl;
 
 
 //---------------------------------------------------------------------------------

@@ -10,7 +10,7 @@ all-local: $(DEP1)
 	@echo ""
 	@echo " Compilation list $(LIST_COMPILE)"
 
-$(DEP1): medio.cpp medio.hpp medioSaveMedMesh.hpp medioLoadMedMesh.hpp medioGetGroupLabel.hpp
+$(DEP1): medio.cpp medio.hpp medioSaveMedMesh.hpp medioLoadMedMesh.hpp medioLoadMedField.hpp medioGetGroupLabel.hpp
 	$(FFCXX) -auto medio.cpp $(CXXFLAGS_MED)  $(LDFLAGS_MED) $(LIBS_MED) -DMEDCOUPLING
 
 install-exec-local:

@@ -27,7 +27,15 @@ using namespace MEDCoupling;
 #include "medioSaveMedMesh.hpp"
 #include "medioLoadMedMesh.hpp"
 #include "medioGetGroupLabel.hpp"
+#include "medioLoadMedField.hpp"
 #include "medio.hpp"
+
+
+#include "MEDLoaderBase.hxx"
+#include "MEDCouplingUMesh.hxx"
+#include "MEDCouplingFieldDouble.hxx"
+#include "MEDCouplingFieldFloat.hxx"
+#include "MEDCouplingMemArray.hxx"
 
 using namespace std;
 using namespace Fem2D;
@@ -35,16 +43,22 @@ using namespace Fem2D;
 static void InitFF()
 {
 
+  Global.Add("loadmedfield", "(", new loadmedfield<double>);
+
 
   Global.Add("savemedmesh", "(", new OneOperator2_< int,  pmesh3, std::string* >(savemedmesh));
   Global.Add("savemedmesh", "(", new OneOperator2_< int,  pmesh,  std::string* >(savemedmesh));
   Global.Add("savemedmesh", "(", new OneOperator2_< int,  pmeshS, std::string* >(savemedmesh));
   Global.Add("savemedmesh", "(", new OneOperator2_< int,  pmeshL, std::string* >(savemedmesh));
-//Global.Add("getMedLabelsOnGroup", "(", new OneOperator3s_< KN< long > *,  KN< long > *, std::string*, std::string* >(getMedLabelsOnGroup)); // also needs // #include "AFunction_ext.hpp"
-  Global.Add("getMedLabelsOnGroup", "(", new OneOperator3_< int, KN< long > *, std::string*, std::string* >(getMedLabelsOnGroup));
-  Global.Add("loadmedmesh", "(", new medloader);
+
+
+  Global.Add("loadmedmesh" , "(", new medloader);
   Global.Add("loadmedmesh3", "(", new medloader3);
   Global.Add("loadmedmeshS", "(", new medloaderS);
   Global.Add("loadmedmeshL", "(", new medloaderL);
+
+
+  Global.Add("getMedLabelsOnGroup", "(", new OneOperator3_< int, KN< long > *, std::string*, std::string* >(getMedLabelsOnGroup));
+
 }
 LOADFUNC(InitFF)
