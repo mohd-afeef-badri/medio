@@ -30,6 +30,13 @@ using namespace MEDCoupling;
 #include "medioLoadMedField.hpp"
 #include "medio.hpp"
 
+
+#include "MEDLoaderBase.hxx"
+#include "MEDCouplingUMesh.hxx"
+#include "MEDCouplingFieldDouble.hxx"
+#include "MEDCouplingFieldFloat.hxx"
+#include "MEDCouplingMemArray.hxx"
+
 using namespace std;
 using namespace Fem2D;
 
