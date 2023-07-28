@@ -6,8 +6,9 @@
 
      Author(s): Mohd Afeef Badri
      Email    : mohd-afeef.badri@cea.com
-     Date     : 06/04/2022
-     Comment  : The is unit test program built for testing medio
+     Date     : 28/07/2023
+     Comment  : The is unit test program built for testing medio 
+                'savemedmesh' is tested for 3DS mesh
 
      -------------------------------------------------------------------
 
@@ -19,28 +20,8 @@
 *******************************************************************************/
 
 load    "./../../src/medio";         // load med io lib
-load    "iovtk"                   // load vtk io lib
-load    "msh3"
-
-
-// test for 2D mesh //
-mesh Th = square (12,12);
-savemedmesh(Th, "test2D.med");
-savevtk("test2D.vtu",Th);
-
-// test for 3D mesh //
-mesh3 Th3 = cube (1,1,1);
-savemedmesh(Th3, "test3D.med");
-savevtk("test3D.vtu",Th3);
-
-// test for 3D surface mesh //
-meshS ThS=square3(1,1,[x,y,z]);
-savemedmesh(ThS, "test3DS.med");
-savevtk("test3DS.vtu",ThS);
-
-// test for 3D curve mesh //
-//helice conique from FreeFEM examples/3dCurve
-border E(t=0, 10.*pi){x=(1.)*t*cos(t); y=-(1.)*t*sin(t); z=t;}
-meshL ThL=buildmeshL(E(1000));
-savemedmesh(ThL, "test3DL.med");
-savevtk("test3DL.vtu",ThL);
+load    "iovtk";                     // load vtk io lib
+load    "msh3";                      // lead 3D mesh
+meshS ThS=square3(1,1,[x,y,z]);      // mesh of square surface
+savemedmesh(ThS, "test3DS.med");     // save mesh in med
+savevtk("test3DS.vtu",ThS);          // save mesh in VTK

@@ -1,0 +1,27 @@
+/*****************************************************************************
+
+     This file is a part of medio (input output med handler for FreeFEM)
+
+     -------------------------------------------------------------------
+
+     Author(s): Mohd Afeef Badri
+     Email    : mohd-afeef.badri@cea.com
+     Date     : 28/07/2023
+     Comment  : The is unit test program built for testing medio 
+                'savemedmesh' is tested for 3D mesh
+
+     -------------------------------------------------------------------
+
+     medio is FreeFEM plugin intended to enable usage of med files meshes.
+     medio is distributed   in  the  hope that it  will be useful, HOWEVER
+     WITHOUT ANY WARRANTY;  or  without  even  implied warranty of FITNESS
+     FOR A PARTICULAR PURPOSE.
+
+*******************************************************************************/
+
+load    "./../../src/medio";         // load med io lib
+load    "iovtk";                     // load vtk io lib
+load    "msh3";                      // lead 3D mesh
+mesh3 Th3 = cube (1,1,1);            // mesh of cube
+savemedmesh(Th3, "test3D.med");      // save mesh in med
+savevtk("test3D.vtu",Th3);           // save mesh in vtk

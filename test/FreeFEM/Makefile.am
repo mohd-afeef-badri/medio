@@ -1,5 +1,13 @@
-LIST_COMPILE= Test_1 \
-Test_2
+LIST_COMPILE= Test_savemed_2D \
+Test_savemed_3D  \
+Test_savemed_3DS \
+Test_savemed_3DC \
+Test_loadmed_2D  \
+Test_loadmed_3D  \
+Test_loadmed_3DS \
+Test_loadmed_3DC \
+Test_redmedlabels_2D  \
+Test_redmedlabels_3D
 
 all-local:
 	@echo ""
@@ -18,16 +26,68 @@ check-header:
 	@echo "*============================================================*"
 	@echo ""
 
-Test_1: Test_1.edp
-	@echo "Test_1 : medio save test"
-	@$(FFMPI) -np 1 Test_1.edp -v 1 > Test_1.log
+
+#-----------------------------------------------------------------------
+## Savemed testing 
+#-----------------------------------------------------------------------
+
+Test_savemed_2D: Test_savemed_2D.edp
+	@echo "Test_savemed_2D : medio save test 2D"
+	@$(FFMPI) -np 1 Test_savemed_2D.edp -v 1 > Test_savemed_2D.log
 	@echo "  PASSED "
 
-Test_2: Test_2.edp
-	@echo "Test_2 : medio load test"
-	@$(FFMPI) -np 1 Test_2.edp -v 1 > Test_2.log
+Test_savemed_3D: Test_savemed_3D.edp
+	@echo "Test_savemed_3D : medio save test 3D"
+	@$(FFMPI) -np 1 Test_savemed_3D.edp -v 1 > Test_savemed_3D.log
 	@echo "  PASSED "
 
+Test_savemed_3DS: Test_savemed_3DS.edp
+	@echo "Test_savemed_3DS : medio save test 3DS"
+	@$(FFMPI) -np 1 Test_savemed_3DS.edp -v 1 > Test_savemed_3DS.log
+	@echo "  PASSED "
+
+Test_savemed_3DC: Test_savemed_3DC.edp
+	@echo "Test_savemed_3DC : medio save test 3DC"
+	@$(FFMPI) -np 1 Test_savemed_3DC.edp -v 1 > Test_savemed_3DC.log
+	@echo "  PASSED "
+
+#-----------------------------------------------------------------------
+## Loadmed testing 
+#-----------------------------------------------------------------------
+
+Test_loadmed_2D: Test_loadmed_2D.edp
+	@echo "Test_loadmed_2D : medio load test 2D"
+	@$(FFMPI) -np 1 Test_loadmed_2D.edp -v 1 > Test_loadmed_2D.log
+	@echo "  PASSED "
+
+Test_loadmed_3D: Test_loadmed_3D.edp
+	@echo "Test_loadmed_3D : medio load test 3D"
+	@$(FFMPI) -np 1 Test_loadmed_3D.edp -v 1 > Test_loadmed_3D.log
+	@echo "  PASSED "
+
+Test_loadmed_3DS: Test_loadmed_3DS.edp
+	@echo "Test_loadmed_3DS : medio load test 3DS"
+	@$(FFMPI) -np 1 Test_loadmed_3DS.edp -v 1 > Test_loadmed_3DS.log
+	@echo "  PASSED "
+
+Test_loadmed_3DC: Test_loadmed_3DC.edp
+	@echo "Test_loadmed_3DC : medio load test 3DC"
+	@$(FFMPI) -np 1 Test_loadmed_3DC.edp -v 1 > Test_loadmed_3DC.log
+	@echo "  PASSED "
+
+#-----------------------------------------------------------------------
+## Redmedlabels testing 
+#-----------------------------------------------------------------------
+
+Test_redmedlabels_2D: Test_redmedlabels_2D.edp
+	@echo "Test_redmedlabels_2D : redmedlabels load test 2D"
+	@$(FFMPI) -np 1 Test_redmedlabels_2D.edp -v 1 > Test_redmedlabels_2D.log
+	@echo "  PASSED "
+
+Test_redmedlabels_3D: Test_redmedlabels_3D.edp
+	@echo "Test_redmedlabels_3D : redmedlabels load test 3D"
+	@$(FFMPI) -np 1 Test_redmedlabels_3D.edp -v 1 > Test_redmedlabels_3D.log
+	@echo "  PASSED "
 
 clean-local:
 	@echo ""
