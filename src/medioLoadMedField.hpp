@@ -44,7 +44,7 @@ class MedFileHandler_Op : public E_F0mps {
   public:
     Expression behaviourName                          ;
 
-    static const int n_name_param = 5                 ;
+    static const int n_name_param = 6                 ;
     static basicAC_F0::name_and_type name_param[]     ;
     Expression nargs[n_name_param]                    ;
 
@@ -68,7 +68,8 @@ basicAC_F0::name_and_type MedFileHandler_Op<K>::name_param[] =
   {"fieldname"           , &typeid(std::string*)},
   {"field"               , &typeid(KN<K>*)      },
   {"order"               , &typeid(long*)       },
-  {"iteration"           , &typeid(long*)       }
+  {"iteration"           , &typeid(long*)       },
+  {"type"                , &typeid(std::string*)}
 };
 
 template<class K>
@@ -102,6 +103,7 @@ AnyType MedFileHandler_Op<K>::operator()(Stack stack) const {
   KN<K>*  field               = nargs[2] ? GetAny<KN<K>*>((*nargs[2])(stack))       : NULL;
   long*   order               = nargs[3] ? GetAny<long*>((*nargs[3])(stack))        : NULL;
   long*   iteration           = nargs[4] ? GetAny<long*>((*nargs[4])(stack))        : NULL;
+  string* type                = nargs[5] ? GetAny<std::string*>((*nargs[5])(stack)) : NULL;
 
   if(meshname == NULL) {
     cout << " \n"
@@ -141,32 +143,59 @@ AnyType MedFileHandler_Op<K>::operator()(Stack stack) const {
 
   int nbFields   = field->n;
 
-  int orderField = 1;
+  int orderField = -1;                  // Default value of med (seems so: Thanks to Christian VAN WAMBEKE)
   if(nargs[3])
     orderField=*order;
 
-  int iterationField = 1;
+  int iterationField = -1;              // Default value of med (seems so: Thanks to Christian VAN WAMBEKE)
   if(nargs[4])
     iterationField=*iteration;
 
+  string typeField = "DOUBLE";          // Default value of med (seems so: Thanks to Christian VAN WAMBEKE)
+  if(nargs[5])
+    typeField=*type;
 
   if(verbosity) cout << " \033[1;36m [loadmedfield]  reading file   :: \033[0m "<< *medfilename
                      << " \033[1;36m reading mesh   :: \033[0m " << *meshname
                      << " \033[1;36m reading field  :: \033[0m " << *fieldname
                      << " \033[1;36m iterationField :: \033[0m " << iterationField
-                     << " \033[1;36m orderField     :: \033[0m " << orderField;
+                     << " \033[1;36m orderField     :: \033[0m " << orderField
+                     << endl;
 
-  MEDCouplingFieldDouble *f2 = dynamic_cast<MEDCouplingFieldDouble *>(ReadFieldNode( *medfilename, *meshname , 0, *fieldname , iterationField, orderField));
+  if(typeField == "FLOAT") {
 
+    MEDCouplingFieldFloat *f2 = dynamic_cast<MEDCouplingFieldFloat *>(ReadFieldNode( *medfilename, *meshname , 0, *fieldname , iterationField, orderField));
 
-  double *nodesRead=f2->getArray()->getPointer();
+    if(verbosity) cout << " \033[1;36m [loadmedfield]  Finished reading FLOAT fields \033[0m" << endl;
 
-  for (int i = 0; i < nbFields; i++){
+    float *nodesRead=f2->getArray()->getPointer();
+
+    for (int i = 0; i < nbFields; i++) {
 #ifdef DEBUG
-   cout << "nodesRead [ " << i << " ] = " <<  nodesRead[i] << endl;
+     cout << "nodesRead [ " << i << " ] = " <<  nodesRead[i] << endl;
 #endif
-   field->operator[](i) = nodesRead[i];
-   }
+     field->operator[](i) = nodesRead[i];
+    }
+  }
+  else if(typeField == "DOUBLE") {
+    MEDCouplingFieldDouble *f2 = dynamic_cast<MEDCouplingFieldDouble *>(ReadFieldNode( *medfilename, *meshname , 0, *fieldname , iterationField, orderField));
+
+    if(verbosity) cout << " \033[1;36m [loadmedfield]  Finished reading DOUBLE fields \033[0m" << endl;
+
+    double *nodesRead=f2->getArray()->getPointer();
+
+    for (int i = 0; i < nbFields; i++) {
+#ifdef DEBUG
+     cout << "nodesRead [ " << i << " ] = " <<  nodesRead[i] << endl;
+#endif
+     field->operator[](i) = nodesRead[i];
+    }
+  }
+  else {
+    if(verbosity) cout << " \033[1;31m [loadmedfield]  Not recognized type for fields \033[0m" << endl;
+  }
+
+
 
   return 0L;
 }

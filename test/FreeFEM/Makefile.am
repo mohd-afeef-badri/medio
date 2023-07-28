@@ -1,4 +1,4 @@
-LIST_COMPILE= Test_savemed_2D \
+LIST_TEST= Test_savemed_2D \
 Test_savemed_3D  \
 Test_savemed_3DS \
 Test_savemed_3DC \
@@ -8,12 +8,14 @@ Test_loadmed_3DS \
 Test_loadmed_3DC \
 Test_redmedlabels_2D  \
 Test_redmedlabels_3D  \
-Test_loadmedfield_2D
+Test_loadmedfield_2D  \
+Test_loadmedfield_2D_float
+
 
 all-local:
 	@echo ""
 
-check-local: check-header $(LIST_COMPILE)
+check-local: check-header $(LIST_TEST)
 	@echo ""
 	@echo "*============================================================*"
 	@echo " Checking medio plugin : SUCCESS                      "
@@ -96,8 +98,13 @@ Test_redmedlabels_3D: Test_redmedlabels_3D.edp
 #-----------------------------------------------------------------------
 
 Test_loadmedfield_2D: Test_loadmedfield_2D.edp
-	@echo "Test_loadmedfield_2D : medio laod filed test 2D"
+	@echo "Test_loadmedfield_2D : medio laod field test 2D"
 	@$(FFMPI) -np 1 Test_loadmedfield_2D.edp -v 1 > Test_loadmedfield_2D.log
+	@echo "  PASSED "
+
+Test_loadmedfield_2D_float: Test_loadmedfield_2D_float.edp
+	@echo "Test_loadmedfield_2D_float : medio laod FLOAT field test 2D"
+	@$(FFMPI) -np 1 Test_loadmedfield_2D_float.edp -v 1 > Test_loadmedfield_2D_float.log
 	@echo "  PASSED "
 
 clean-local:

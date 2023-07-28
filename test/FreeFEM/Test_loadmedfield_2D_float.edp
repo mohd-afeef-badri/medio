@@ -22,9 +22,15 @@
 
 load    "./../../src/medio";         // load medio lib
 
-real[int] tt(72);
-int fieldOrder = 3; int fieldIter = 2; 
+real[int] readData(231);
+int fieldOrder = -1; int fieldIter = -1; 
 
-loadmedfield("./../../data/med/Polymesh_2D_VectorField.med", meshname = "PolyMesh" , fieldname = "VectorFieldOnNodes", field=tt , order = fieldOrder , iteration = fieldIter);   // save square mesh in med
+loadmedfield( "./../../data/med/MixedTriaQuadmesh_2D_ScalarField.med", 
+              meshname = "Mesh"                  , 
+              fieldname = "TEMPERATURE_ELEM_dom" , 
+              field = readData                   , 
+              order = fieldOrder                 , 
+              iteration = fieldIter              , 
+              type = "FLOAT"                     );
 
-cout << tt << endl;
+cout << readData << endl;
