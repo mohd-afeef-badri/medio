@@ -27,6 +27,7 @@ using namespace MEDCoupling;
 #include "medioSaveMedMesh.hpp"
 #include "medioLoadMedMesh.hpp"
 #include "medioGetGroupLabel.hpp"
+#include "medioLoadMedField.hpp"
 #include "medio.hpp"
 
 using namespace std;
