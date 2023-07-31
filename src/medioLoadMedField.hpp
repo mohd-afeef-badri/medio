@@ -183,11 +183,14 @@ AnyType MedFileHandler_Op<K>::operator()(Stack stack) const {
   if(nargs[5])
     typeField=*type;
 
-  if(verbosity) cout << " \033[1;36m [loadmedfield]  reading file   :: \033[0m "<< *medfilename
-                     << " \033[1;36m reading mesh   :: \033[0m " << *meshname
-                     << " \033[1;36m reading field  :: \033[0m " << *fieldname
-                     << " \033[1;36m iterationField :: \033[0m " << iterationField
-                     << " \033[1;36m orderField     :: \033[0m " << orderField
+  if(verbosity) cout << " \033[1;36m [loadmedfield]    \033[0m "
+                     << "\n   \033[1;36m reading file   :: \033[0m " << *medfilename
+                     << "\n   \033[1;36m reading mesh   :: \033[0m " << *meshname
+                     << "\n   \033[1;36m reading field  :: \033[0m " << *fieldname
+                     << "\n   \033[1;36m iterationField :: \033[0m " << iterationField
+                     << "\n   \033[1;36m orderField     :: \033[0m " << orderField
+                     << "\n   \033[1;36m typeField      :: \033[0m " << typeField
+                     << "\n"
                      << endl;
 
   if(typeField == "FLOAT") {
