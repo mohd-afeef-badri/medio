@@ -1,0 +1,34 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  medio: An Open-source Library Bridging Finite Element
+  Kernels and SALOME for Enhanced Mesh Data Interoperability
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Mohd Afeef
+    family-names: Badri
+    affiliation: CEA
+    orcid: 'https://orcid.org/0000-0002-4646-8309'
+  - {}
+repository-code: 'https://github.com/mohd-afeef-badri/medio'
+abstract: >-
+  Medio is a library designed to facilitate the input and
+  output of mesh files for finite element kernels (e.g.,
+  FreeFEM) in the med format, which is the native mesh
+  format utilized by SALOME, an open-source
+  pre/post-processing tool known for its robust capabilities
+  in computational engineering and simulation.
+
+  Medio bridges the gap between finite element kernels and
+  SALOME, enabling seamless data exchange and promoting
+  interoperability between the worlds of finite element and
+  meshing.
+keywords:
+  - meshing
+  - finite element method
+license: LGPL-2.1
