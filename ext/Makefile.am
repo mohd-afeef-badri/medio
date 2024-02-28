@@ -4,12 +4,17 @@
 MEDCOUPLING_VERSION=9.12.0
 MEDCOUPLING_MD5SUM=b67866e8d294581a7102b54d650b59ab
 
+#--------------------------------------------------------------------------------
+# With MPI or Without
+#--------------------------------------------------------------------------------
+WITHMPI=
+#WITHMPI=-MPI
 
 #--------------------------------------------------------------------------------
 # Download link #TODO
 #--------------------------------------------------------------------------------
-MEDCOUPLING_DOWNLOAD      =  wget -c https://files.salome-platform.org/Salome/Salome$(MEDCOUPLING_VERSION)/MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI-$(MEDCOUPLING_MD5SUM).tar.gz \
-                       -O MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI.tar.gz
+MEDCOUPLING_DOWNLOAD      =  wget -c https://files.salome-platform.org/Salome/Salome$(MEDCOUPLING_VERSION)/MEDCOUPLING-$(MEDCOUPLING_VERSION)$(WITHMPI)-$(MEDCOUPLING_MD5SUM).tar.gz \
+                       -O MEDCOUPLING-$(MEDCOUPLING_VERSION)$(WITHMPI).tar.gz
 
 #--------------------------------------------------------------------------------
 # CMAKE FLAGS FOR MEDCOUPLING
@@ -46,7 +51,7 @@ all-local: $(LIST_MAKE_EXECUTE)
 	@echo ""
 
 download-dependencies:
-	@if [ ! -f MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI.tar.gz ]; then \
+	@if [ ! -f MEDCOUPLING-$(MEDCOUPLING_VERSION)$(WITHMPI).tar.gz ]; then \
 		$(MEDCOUPLING_DOWNLOAD); \
 	fi
 
@@ -56,28 +61,28 @@ download-dependencies:
 #  - User can override download by providing ext/mfront-$(MFRONT_VERSION).tar.gz
 #--------------------------------------------------------------------------------
 
-medcoupling-build: MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI/INSTALL/MEDCOUPLING/lib/libmedcoupling.so
+medcoupling-build: MEDCOUPLING-$(MEDCOUPLING_VERSION)$(WITHMPI)/INSTALL/MEDCOUPLING/lib/libmedcoupling.so
 
-MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI/INSTALL/MEDCOUPLING/lib/libmedcoupling.so: MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI.tar.gz
+MEDCOUPLING-$(MEDCOUPLING_VERSION)$(WITHMPI)/INSTALL/MEDCOUPLING/lib/libmedcoupling.so: MEDCOUPLING-$(MEDCOUPLING_VERSION)$(WITHMPI).tar.gz
 	@echo ""
 	@echo "*============================================================*"
 	@echo " MEDCOUPLING installation began for you be patient:   "
 	@echo "   - Download using wget version $(MEDCOUPLING_VERSION)"
-	@echo "   - to overide provide ext/MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI.tar.gz"
+	@echo "   - to overide provide ext/MEDCOUPLING-$(MEDCOUPLING_VERSION)$(WITHMPI).tar.gz"
 	@echo "*============================================================*"
 	@echo ""
 	@echo ""
 	@echo "*---------------------------------*"
-	@echo "   untaring MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI.tar.gz"
+	@echo "   untaring MEDCOUPLING-$(MEDCOUPLING_VERSION)$(WITHMPI).tar.gz"
 	@echo "*---------------------------------*"
 	@echo ""
-	tar -xzf MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI.tar.gz
+	tar -xzf MEDCOUPLING-$(MEDCOUPLING_VERSION)$(WITHMPI).tar.gz
 	@echo ""
 	@echo "*---------------------------------*"
 	@echo "   creating BUILD and INSTALL directories"
 	@echo "*---------------------------------*"
 	@echo ""
-	cd MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI   && \
+	cd MEDCOUPLING-$(MEDCOUPLING_VERSION)$(WITHMPI)   && \
 	mkdir -p BUILD   && \
 	mkdir -p INSTALL
 	@echo ""
@@ -85,7 +90,7 @@ MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI/INSTALL/MEDCOUPLING/lib/libmedcoupling.so
 	@echo "   installing medcoupling"
 	@echo "*---------------------------------*"
 	@echo ""
-	cd MEDCOUPLING-$(MEDCOUPLING_VERSION)-MPI/SOURCES       && \
+	cd MEDCOUPLING-$(MEDCOUPLING_VERSION)$(WITHMPI)/SOURCES       && \
 	tar -xzf ./../ARCHIVES/MEDCOUPLING.tgz && \
 	cd ./../BUILD && \
 	source ./../env_launch.sh && \
