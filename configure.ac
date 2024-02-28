@@ -68,8 +68,12 @@ AC_ARG_WITH([medcoupling],
 
 
 AC_ARG_WITH([dependencies],
-	[  --with-dependencies=         Dependencies installation : (e.g. --with-dependencies=yes)],
+	[  --with-dependencies=        Dependencies installation : (e.g. --with-dependencies=yes)],
         [dependencies="$withval"], [dependencies="no"])
+
+AC_ARG_WITH([med_MPI],
+	[  --with-med_MPI=             Med and medCoupling MPI version : (e.g. --with-med_MPI=yes)],
+        [med_MPI="$withval"], [med_MPI="no"])
 
 
 AC_SUBST([dependencies])
@@ -84,7 +88,7 @@ test "$dependencies" == "no" && AC_MSG_WARN([
 
  The wget command will be used  to download these,
  if you wish to provided already downloaded files,
- simply add the MEDCOUPLING-$$VERSION-MPI.tar.gz
+ simply add the MEDCOUPLING-$$VERSION.tar.gz
  in /ext folder.
  ])
 
@@ -321,24 +325,31 @@ test $hdf5 != no -a $medfile != no -a $medcoupling != no && AC_SUBST(LDFLAGS_MED
 test $hdf5 != no -a $medfile != no -a $medcoupling != no && AC_SUBST(LIBS_MED,"-lhdf5 -lmedC -lmedloader -lmedcoupling -linterpkernel -lmedcouplingremapper   ${LIBS}"  )
 
 
+AM_CONDITIONAL([MPI_MED], [test $med_MPI != no])
+test $med_MPI != no && AC_SUBST(MPI_MED,"-MPI")
 
-test $dependencies != no && AC_SUBST(CXXFLAGS_MED,"-I$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/BINARIES-CO7/hdf5/include -I$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/BINARIES-CO7/medfile/include -I$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/INSTALL/MEDCOUPLING/include ${CXXFLAGS}"  )
-test $dependencies != no && AC_SUBST(LDFLAGS_MED,"-L$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/BINARIES-CO7/hdf5/lib -L$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/BINARIES-CO7/medfile/lib -L$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/INSTALL/MEDCOUPLING/lib ${LDFLAGS}"  )
+AC_SUBST(SALOME_VERSION,["9.12.0"])
+
+test $dependencies != no && AC_SUBST(CXXFLAGS_MED,"-I$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/BINARIES-CO7/hdf5/include -I$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/BINARIES-CO7/medfile/include -I$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/INSTALL/MEDCOUPLING/include ${CXXFLAGS}"  )
+test $dependencies != no && AC_SUBST(LDFLAGS_MED,"-L$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/BINARIES-CO7/hdf5/lib -L$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/BINARIES-CO7/medfile/lib -L$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/INSTALL/MEDCOUPLING/lib ${LDFLAGS}"  )
 test $dependencies != no && AC_SUBST(LIBS_MED,"-lhdf5 -lmedC -lmedloader -lmedcoupling -linterpkernel -lmedcouplingremapper   ${LIBS}"  )
 
-test $dependencies != no && AC_SUBST(MEDIO_MEDCOUPLING_DIR,"$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/INSTALL/MEDCOUPLING"  )
-test $dependencies != no && AC_SUBST(MEDIO_HDF5_DIR,"$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/BINARIES-CO7/hdf5"  )
-test $dependencies != no && AC_SUBST(MEDIO_MEDFILE_DIR,"$(pwd)/ext/MEDCOUPLING-9.11.0-MPI/BINARIES-CO7/medfile"  )
+test $dependencies != no && AC_SUBST(MEDIO_MEDCOUPLING_DIR,"$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/INSTALL/MEDCOUPLING"  )
+test $dependencies != no && AC_SUBST(MEDIO_HDF5_DIR,"$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/BINARIES-CO7/hdf5"  )
+test $dependencies != no && AC_SUBST(MEDIO_MEDFILE_DIR,"$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/BINARIES-CO7/medfile"  )
 
 AC_MSG_RESULT([])
 
 AC_SUBST(CXXFLAGS_MED,[$CXXFLAGS_MED])
 AC_SUBST(LDFLAGS_MED,[$LDFLAGS_MED])
 AC_SUBST(LIBS_MED,[$LIBS_MED])
+AC_SUBST(MPI_MED,[$MPI_MED])
 
 
 AC_MSG_RESULT([ CXXFLAGS_MED FLAGS    : '$CXXFLAGS_MED'])
+AC_MSG_RESULT([])
 AC_MSG_RESULT([ LDFLAGS_MED  FLAGS    : '$LDFLAGS_MED'])
+AC_MSG_RESULT([])
 AC_MSG_RESULT([ LIBS_MED     FLAGS    : '$LIBS_MED'])
 
 AC_MSG_RESULT([])
