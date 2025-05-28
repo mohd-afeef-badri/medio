@@ -2,7 +2,6 @@
 # Version info
 #--------------------------------------------------------------------------------
 MEDCOUPLING_VERSION=$(SALOME_VERSION)
-MEDCOUPLING_MD5SUM=b67866e8d294581a7102b54d650b59ab
 
 #--------------------------------------------------------------------------------
 # With MPI or Without
@@ -10,10 +9,13 @@ MEDCOUPLING_MD5SUM=b67866e8d294581a7102b54d650b59ab
 WITHMPI=$(MPI_MED)
 
 #--------------------------------------------------------------------------------
-# Download link #TODO
+# Download link
 #--------------------------------------------------------------------------------
-MEDCOUPLING_DOWNLOAD      =  wget -c https://files.salome-platform.org/Salome/Salome$(MEDCOUPLING_VERSION)/MEDCOUPLING-$(MEDCOUPLING_VERSION)$(WITHMPI)-$(MEDCOUPLING_MD5SUM).tar.gz \
-                       -O MEDCOUPLING-$(MEDCOUPLING_VERSION)$(WITHMPI).tar.gz
+MEDCOUPLING_DOWNLOAD =	wget -c \
+  			--header="User-Agent: Mozilla/5.0 (X11; Linux x86_64)" \
+  			--header="Referer: https://www.salome-platform.org/" \
+  			https://files.salome-platform.org/Salome/Salome$(MEDCOUPLING_VERSION)/MEDCOUPLING-$(MEDCOUPLING_VERSION).tar.gz \
+  			-O MEDCOUPLING-$(MEDCOUPLING_VERSION).tar.gz
 
 #--------------------------------------------------------------------------------
 # CMAKE FLAGS FOR MEDCOUPLING
