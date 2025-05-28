@@ -1,4 +1,4 @@
-name: UB22.04
+name: UB24.04
 
 on:
   push:
@@ -22,12 +22,12 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install mpich
-        wget https://github.com/FreeFem/FreeFem-sources/releases/download/v4.14-testActions/FreeFEM-4.14-amd64-22.04.deb
-        sudo apt install ./FreeFEM-4.14-amd64-22.04.deb
+        sudo apt-get install mpich  libtirpc-dev
+        wget https://github.com/FreeFem/FreeFem-sources/releases/download/v4.15/FreeFEM-4.15-amd64-ubuntu24.04.deb
+        sudo apt install ./FreeFEM-4.15-amd64-24.04.deb
     - name: configure
       run: autoreconf -i && ./configure --with-dependencies
     - name: make
       run: make && sudo make install
     - name: make check
-      run: export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.12.0/BINARIES-CO7/hdf5/lib:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.12.0/BINARIES-CO7/medfile/lib:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.12.0/INSTALL/MEDCOUPLING/lib && make check
+      run: export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.14.0/BINARIES-CO7/hdf5/lib:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.14.0/BINARIES-CO7/medfile/lib:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.14.0/INSTALL/MEDCOUPLING/lib && make check
