@@ -30,4 +30,14 @@ jobs:
     - name: make
       run: make && sudo make install
     - name: make check
-      run: export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.14.0/BINARIES-CO7/hdf5/lib:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.14.0/BINARIES-CO7/medfile/lib:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.14.0/INSTALL/MEDCOUPLING/lib && make check
+      run: |
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.14.0/BINARIES-CO7/hdf5/lib:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.14.0/BINARIES-CO7/medfile/lib:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.14.0/INSTALL/MEDCOUPLING/lib && make check
+        mkdir -p $GITHUB_WORKSPACE/artifacts
+        find . \( -name "*.log" -o -name "*.txt" \) -exec cp --parents {} "$GITHUB_WORKSPACE/artifacts/" \; || true
+    - name: Upload logs
+      if: always()  # upload logs even if test failed
+      uses: actions/upload-artifact@v4
+      with:
+        name: check-logs
+        path: ${{ github.workspace }}/artifacts
+      
