@@ -328,7 +328,7 @@ test $hdf5 != no -a $medfile != no -a $medcoupling != no && AC_SUBST(LIBS_MED,"-
 AM_CONDITIONAL([MPI_MED], [test $med_MPI != no])
 test $med_MPI != no && AC_SUBST(MPI_MED,"-MPI")
 
-AC_SUBST(SALOME_VERSION,["9.14.0"])
+AC_SUBST(SALOME_VERSION,["9.15.0"])
 
 test $dependencies != no && AC_SUBST(CXXFLAGS_MED,"-I$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/BINARIES-CO7/hdf5/include -I$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/BINARIES-CO7/medfile/include -I$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/INSTALL/MEDCOUPLING/include ${CXXFLAGS}"  )
 test $dependencies != no && AC_SUBST(LDFLAGS_MED,"-L$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/BINARIES-CO7/hdf5/lib -L$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/BINARIES-CO7/medfile/lib -L$(pwd)/ext/MEDCOUPLING-${SALOME_VERSION}${MPI_MED}/INSTALL/MEDCOUPLING/lib ${LDFLAGS}"  )
