@@ -32,7 +32,7 @@ jobs:
     - name: make check
       run: |
         set +e                      # Don't exit immediately on failure
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.14.0/BINARIES-CO7/hdf5/lib:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.14.0/BINARIES-CO7/medfile/lib:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.14.0/INSTALL/MEDCOUPLING/lib && make check
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.15.0/BINARIES-CO7/hdf5/lib:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.15.0/BINARIES-CO7/medfile/lib:/home/runner/work/medio/medio/ext/MEDCOUPLING-9.15.0/INSTALL/MEDCOUPLING/lib && make check
         status=$?                  # Capture exit code of make check
         mkdir -p $GITHUB_WORKSPACE/artifacts
         find . \( -name "*.log" -o -name "*.txt" \) -exec cp --parents {} "$GITHUB_WORKSPACE/artifacts/" \; || true
